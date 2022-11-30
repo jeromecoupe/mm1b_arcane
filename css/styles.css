@@ -1,9 +1,3 @@
-/*
-@TODO
-- présenter et faire variables
-- refaire la CSS ensemble
-*/
-
 /* ===========================
 =variables
 =========================== */
@@ -47,15 +41,32 @@
 =========================== */
 
 html {
-  font: 400 100%/1.42 var(--fontstack-main);
+  font: 400 100%/1.54 var(--fontstack-main);
 }
 
 /* ===========================
 =body
 =========================== */
 
+/*
+- supprimer les margin et padding par défaut
+- utiliser une image comme fond de la boite
+- ne pas répéter l'image
+- positionner l'image: à 50% sur l'axe X (horizontal) et 0 sur l'axe Y (vertical)
+- la taille de l'image sur l'axe X doit être de 100% et elle doit avoir une taille automatique sur l'axe Y
+- couleur de texte
+*/
+
 body {
+  margin: 0;
+  padding: 0;
+
   background-color: var(--color-background);
+  background-image: url(../img/bgpage.jpg);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: 100% auto;
+
   color: var(--color-text);
 }
 
@@ -69,13 +80,172 @@ a {
 }
 
 /* ===========================
+=site header
+=========================== */
+
+.siteheader {
+  /* 
+  padding verticaux (dans notre langue)
+  - les "rem" sont une unité typographique ("root em")
+  - 1rem === la taille de la police dans l'élément racine HTML
+  - Si vous n'avez rien changé ou si votre taille de police est à 100% dans l'élement HTML est de 100%, 1rem vaut TOUJOURS 16px dans tous les navigateur
+  - C'est plus accessible/inclusif de spécifier les espacements et les tailles de polices en rem plutôt qu'en pixels parceque, si l'utilisateur change la taille de police par défaut dans sont navigateur (par exemple parcequ'il ne voit pas bien), les tailles en rem vont s'adapter. Les tailles en pixels, elles, vont rester absolues.
+  - Comme 1rem vaut 16 pixels, on peut demander au navigateur de calculer pour nous: calc(pixels souhaités / 16 * 1rem).
+  */
+  padding-block: calc(24 / 16 * 1rem);
+}
+
+@media all and (min-width: 750px) {
+  .siteheader {
+    padding-block: calc(36 / 16 * 1rem);
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .siteheader {
+    padding-block: calc(60 / 16 * 1rem);
+  }
+}
+
+/*
+1. par defaut
+- corde à linge
+- axe principal vertical
+- éléments alignés vers le début de l'axe principal
+- éléments prennent toute la place (stretch) sur l'axe secondaire
+
+2. Lorsque le viewport a une largeur minimale de 750px
+- corde à linge horizontale
+- on met l'espace disponible entre les 2 elements
+- on aligne les choses au centre sur l'axe secondaire
+*/
+
+.siteheader__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: calc(24 / 16 * 1rem);
+}
+
+@media all and (min-width: 750px) {
+  .siteheader__content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/*
+Supprimer la marge du paragraphe
+*/
+.siteheader__logo {
+  margin-block-end: 0;
+}
+
+/* ===========================
+=mainnav
+=========================== */
+
+/*
+- supprimer les puces de liste
+- pas de marges ni de padding (existent par défaut)
+
+1. Par défaut:
+- corde à linge verticale
+- flex items justifiés au début de l'axe principal (vertical)
+- flex items prennent tt la place sur l'axe secondaire (horizontal)
+- gap de 6px
+
+2. Lorsque le viewport a une largeur minimale de 750px
+- corde à linge passe en horizontal
+- flex items justifiés au début de l'axe principal (horizontal)
+- flex items centrés sur l'axe secondaire (vertical)
+*/
+.mainnav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: calc(6 / 16 * 1rem);
+}
+
+@media all and (min-width: 750px) {
+  .mainnav {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(30 / 16 * 1rem);
+  }
+}
+
+/*
+- Changer les caractéristiques des liens (couleur, display, etc)
+- Par defaut couleurs claire
+- Quand on passe dessus avec la souris ou que le foicus du clavier est dessus, couleur verte
+- On met une transition sur la couleur, durée de 0.2 secondes, ralentissement vers la fin
+*/
+
+.mainnav__link {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-weight: 600;
+
+  display: block;
+  padding-block: calc(3 / 16 * 1rem);
+  transition: color 0.2s ease-out;
+}
+
+@media all and (min-width: 750px) {
+  .mainnav__link {
+    padding: calc(6 / 16 * 1rem);
+  }
+}
+
+.mainnav__link:hover,
+.mainnav__link:focus {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+/* ===========================
+=intro
+=========================== */
+
+/*
+- quand le viewport a une largeur de 1024px minimum
+- créer une grille (qui va impacter les enfants de .intro)
+- cette grille possède deux colonnes, chaque colonne fait 1 fraction de l'espace disponible
+- il existe un gap de 36px entre chaque rangée et chaque colonne de la grille
+*/
+
+@media all and (min-width: 1024px) {
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(36 / 16 * 1rem);
+  }
+}
+
+/* ===========================
 =titles
 =========================== */
+
+/*
+- clamp est une fonction CSS qui prend trois valeurs en paramètres
+  - valeur1: le minimum (ici 60 pixels calculés en rem)
+  - valeur2: l'idéal (ici 1rem + 8% de la largeur du viewport)
+  - valeur3: le maximum (ici 120 pixels calculés en rem)
+*/
 
 .title1 {
   font-weight: 500;
   font-family: var(--fontstack-alt);
-  font-size: clamp(60 / 16 * 1rem, 1rem + 9vw, 120 / 16 * 1rem);
+  font-size: clamp(60 / 16 * 1rem, 1rem + 8vw, 120 / 16 * 1rem);
   line-height: 1.12;
   color: var(--color-brand);
   margin-block-end: 0.5em;
@@ -99,18 +269,24 @@ a {
 */
 
 .section {
-  padding-block: 30px;
+  padding-block: calc(30 / 16 * 1rem);
 }
 
 @media all and (min-width: 750px) {
   .section {
-    padding-block: 48px;
+    padding-block: calc(48 / 16 * 1rem);
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .section {
+    padding-block: calc(60 / 16 * 1rem);
   }
 }
 
 @media all and (min-width: 1200px) {
   .section {
-    padding-block: 60px;
+    padding-block: calc(90 / 16 * 1rem);
   }
 }
 
@@ -122,17 +298,30 @@ a {
 - un peu de padding sur les côtés pour éviter que notre contenu ne tape contre les bords du navigateur
 - une largeur max de 1200px
 - centré horizontalement
+- on augmente un peu le padding latéral à partir des écrans moyens
 */
 
 .container {
-  padding-inline: 18px;
+  padding-inline: calc(18 / 16 * 1rem);
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@media all and (min-width: 750px) {
+  .container {
+    padding-inline: calc(36 / 16 * 1rem);
+  }
 }
 
 /* ===========================
 =fluid images
 =========================== */
+
+/*
+- par defaut une image a un display d'inline. La passer en block fait en sorte que la boite ne réserve plus d'espace pour les caractères descendants (p,q,j,g, etc.) ce qui créée parfois un petit espace sous l'image.
+- sa largeur maximale est 100% de son parent
+- sa hauteur est automatque (elle va rester à l'échelle par rapport au fichier de base)
+*/
 
 .fluidimg {
   display: block;
