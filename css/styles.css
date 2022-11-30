@@ -1,0 +1,141 @@
+/*
+@TODO
+- présenter et faire variables
+- refaire la CSS ensemble
+*/
+
+/* ===========================
+=variables
+=========================== */
+
+/* Définition de variables pour l'élément racine (scope global) */
+:root {
+  --color-background: #050a08;
+  --color-text: #cecdce;
+  --color-text-offset: #6d686b;
+  --color-text-light: #ffffff;
+  --color-brand: #61d3ab;
+  --color-brand-dark: #2b6558;
+
+  --fontstack-main: "Georgia", "Times", "Times New Roman", serif;
+  --fontstack-alt: "Cormorant", "Georgia", "Times", "Times New Roman", serif;
+}
+
+/* ===========================
+=polices
+=========================== */
+
+@font-face {
+  font-family: "Cormorant";
+  src: url(../fonts/cormorant-variable.woff2) format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+}
+
+/* ===========================
+=kill top margins
+=========================== */
+
+*,
+*::before,
+*::after {
+  margin-top: 0;
+}
+
+/* ===========================
+=html
+=========================== */
+
+html {
+  font: 400 100%/1.42 var(--fontstack-main);
+}
+
+/* ===========================
+=body
+=========================== */
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* ===========================
+=links
+=========================== */
+
+a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+/* ===========================
+=titles
+=========================== */
+
+.title1 {
+  font-weight: 500;
+  font-family: var(--fontstack-alt);
+  font-size: clamp(60 / 16 * 1rem, 1rem + 9vw, 120 / 16 * 1rem);
+  line-height: 1.12;
+  color: var(--color-brand);
+  margin-block-end: 0.5em;
+}
+
+.title2 {
+  font-weight: 500;
+  font-family: var(--fontstack-alt);
+  font-size: clamp(42 / 16 * 1rem, 1rem + 5vw, 66 / 16 * 1rem);
+  line-height: 1.12;
+  color: var(--color-brand);
+  margin-block-end: 0.5em;
+}
+
+/* ===========================
+=section
+=========================== */
+
+/*
+- padding vertical
+*/
+
+.section {
+  padding-block: 30px;
+}
+
+@media all and (min-width: 750px) {
+  .section {
+    padding-block: 48px;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .section {
+    padding-block: 60px;
+  }
+}
+
+/* ===========================
+=container
+=========================== */
+
+/*
+- un peu de padding sur les côtés pour éviter que notre contenu ne tape contre les bords du navigateur
+- une largeur max de 1200px
+- centré horizontalement
+*/
+
+.container {
+  padding-inline: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===========================
+=fluid images
+=========================== */
+
+.fluidimg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
