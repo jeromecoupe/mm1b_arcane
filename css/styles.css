@@ -42,6 +42,7 @@
 
 html {
   font: 400 100%/1.54 var(--fontstack-main);
+  scroll-behavior: smooth;
 }
 
 /* ===========================
@@ -337,7 +338,42 @@ Supprimer la marge du paragraphe
 =========================== */
 
 .character__media {
+  /* positionner l'émément en relatif (par rapport à sa place normale) sans le bouger. 
+  - Nous avons créé un positionement EXPLICITE 
+  - Cela va servir de contexte aux éléments descendants positionnés absolument */
+  position: relative;
   margin-block-end: calc(24 / 16 * 1rem);
+  overflow: hidden;
+}
+
+.character__media::after {
+  /* positionné absolument par rapport à son ancètre le plus proche positionné explicitement
+  - Cela tombe bien, .character__media est positionné explicitement.
+  - notre élément after va être positionné par rapoort à cet élément */
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+
+  content: "";
+  width: 48px;
+  height: 48px;
+  background-image: url(../img/icon_more.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+
+  /* par defaut on le translate vers le bas et on met son opacité à 0 */
+  transform: translateY(60px);
+  opacity: 0;
+
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* sélectionner l'émément généré after qui se trouve à la fin de la boite .container__media lorsqu'elle est survolée par le pointeur.  */
+.character__media:hover::after,
+.character__media:focus::after {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .character__title {
@@ -345,6 +381,21 @@ Supprimer la marge du paragraphe
   font-size: calc(30 / 16 * 1rem);
   font-family: var(--fontstack-alt);
   margin-block-end: 0;
+}
+
+.character__title > a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+.character__title > a:hover,
+.character__title > a:focus {
+  text-decoration: underline;
+}
+
+.character__tagline {
+  color: var(--color-text-offset);
+  font-style: italic;
 }
 
 /* ===========================
