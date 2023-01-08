@@ -19,6 +19,7 @@
 =polices
 =========================== */
 
+/* importer un fichier de police custom (graisse variable) et lui donner un nom */
 @font-face {
   font-family: "Cormorant";
   src: url(../fonts/cormorant-variable.woff2) format("woff2-variations");
