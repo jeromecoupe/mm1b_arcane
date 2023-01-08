@@ -197,6 +197,7 @@ Supprimer la marge du paragraphe
   color: var(--color-text-light);
   text-decoration: none;
   font-weight: 600;
+  letter-spacing: 0.05em;
 
   display: block;
   padding-block: calc(3 / 16 * 1rem);
@@ -253,6 +254,38 @@ Supprimer la marge du paragraphe
 }
 
 /* ===========================
+=lead text
+=========================== */
+
+.lead {
+  font-size: calc(20 / 16 * 1rem);
+  color: var(--color-text);
+}
+
+/* ===========================
+=bold link
+=========================== */
+
+.boldlink {
+  display: inline-block;
+  padding-block-end: calc(3 / 16 * 1rem);
+  color: var(--color-text-light);
+  border-bottom: 3px solid var(--color-brand-dark);
+  font-size: calc(12 / 16 * 1rem);
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  transition: border-color 0.2s ease-out;
+}
+
+.boldlink:hover,
+.boldlink:focus {
+  border-color: var(--color-brand);
+}
+
+/* ===========================
 =titles
 =========================== */
 
@@ -279,6 +312,10 @@ Supprimer la marge du paragraphe
   line-height: 1.12;
   color: var(--color-brand);
   margin-block-end: 0.5em;
+}
+
+.title2--short {
+  width: 12ch;
 }
 
 /* ===========================
@@ -381,6 +418,7 @@ Supprimer la marge du paragraphe
   font-weight: 500;
   font-size: calc(30 / 16 * 1rem);
   font-family: var(--fontstack-alt);
+  line-height: 1.2;
   margin-block-end: 0;
 }
 
@@ -396,6 +434,7 @@ Supprimer la marge du paragraphe
 
 .character__tagline {
   color: var(--color-text-offset);
+  font-size: calc(18 / 16 * 1rem);
   font-style: italic;
 }
 
@@ -430,6 +469,15 @@ Supprimer la marge du paragraphe
 }
 
 /* ===========================
+=sitefooter
+=========================== */
+
+.sitefooter__content {
+  padding-block: calc(24 / 16 * 1rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ===========================
 =container
 =========================== */
 
@@ -442,7 +490,7 @@ Supprimer la marge du paragraphe
 
 .container {
   padding-inline: calc(18 / 16 * 1rem);
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
